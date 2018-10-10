@@ -1,13 +1,13 @@
 package ru.job4j.calculate;
 
 /**
- * Calculate
+ * Calculate.
  *
  * @author Plaksin Arseniy (arsp93@mail.ru)
  */
 public class Calculate {
 	/**
-	 * Main
+	 * Main.
 	 * @param args - args
 	 */
 	public static void main(String[] args) {
@@ -15,8 +15,8 @@ public class Calculate {
 	}
 	
 	/**
-	 * Method echo
-	 * @param name Your name.
+	 * Method echo.
+	 * @param name Your name
 	 * @return echo plus your name
 	 */
 	public String echo(String name) {
