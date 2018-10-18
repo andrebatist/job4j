@@ -1,7 +1,7 @@
 package ru.job4j.max;
 
 /**
- * Максимум из двух чисел.
+ * Максимум из двух  и трех чисел.
  */
 public class Max {
     /**
@@ -16,6 +16,7 @@ public class Max {
     }
 
     /**
+     * Максимум из трех чисел.
      *
      * @param first Первое число.
      * @param second Второе число.
