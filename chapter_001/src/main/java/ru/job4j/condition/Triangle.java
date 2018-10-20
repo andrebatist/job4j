@@ -11,13 +11,14 @@ public class Triangle {
     private Point c;
 
     public Triangle(Point a, Point b, Point c) {
-       this.a=a;
-       this.b=b;
-       this.c=c;
+        this.a = a;
+        this.b = b;
+        this.c = c;
     }
 
     /**
      * Метод для подсчета полупериметра.
+     *
      * @param ac расстояние между точками a c.
      * @param ab расстояние между точками a b.
      * @param bc расстояние между точками b c.
@@ -39,8 +40,8 @@ public class Triangle {
         double bc = this.b.distanceTo(this.c);
 
         double p = this.period(ab, ac, bc);
-        if (this.exist(ab,ac,bc)) {
-            rsl = Math.sqrt(p*(p-ab)*(p-ac)*(p-bc));
+        if (this.exist(ab, ac, bc)) {
+            rsl = Math.sqrt(p * (p - ab) * (p - ac) * (p - bc));
         }
         return rsl;
     }
@@ -54,7 +55,7 @@ public class Triangle {
      * @return можно или нет.
      */
     private boolean exist(double ab, double ac, double bc) {
-        return ((ab<(ac+bc))&&(ac<(ab+bc))&&(bc<(ab+ac)));
+        return ((ab < (ac + bc)) && (ac < (ab + bc)) && (bc < (ab + ac)));
     }
 
 }

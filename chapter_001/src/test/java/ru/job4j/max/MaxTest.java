@@ -50,7 +50,7 @@ public class MaxTest {
     @Test
     public void whenMaxFromOneTwoThree() {
         Max maxim = new Max();
-        int result  = maxim.max(1,2,3);
+        int result = maxim.max(1, 2, 3);
         assertThat(result, is(3));
     }
 
@@ -60,7 +60,7 @@ public class MaxTest {
     @Test
     public void whenMaxFromThreeTwoOne() {
         Max maxim = new Max();
-        int result  = maxim.max(3,2,1);
+        int result = maxim.max(3, 2, 1);
         assertThat(result, is(3));
     }
 
@@ -70,7 +70,7 @@ public class MaxTest {
     @Test
     public void whenMaxFromThreeAreEqual() {
         Max maxim = new Max();
-        int result  = maxim.max(3,3,3);
+        int result = maxim.max(3, 3, 3);
         assertThat(result, is(3));
     }
 }
