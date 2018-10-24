@@ -17,15 +17,15 @@ public class Check {
     public boolean mono(boolean[] data) {
         boolean result = false;
         int s = 0;
-        int k = 0;
+        boolean first = data[0];
         for (boolean el : data) {
-            if (el) {
-                s++;
+            if (el != first) {
+                break;
             } else {
-                k++;
+                s++;
             }
         }
-        if ((s == data.length) || (k == data.length)) {
+        if (s == data.length) {
             result = true;
         }
         return result;
