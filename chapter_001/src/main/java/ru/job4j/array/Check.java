@@ -11,7 +11,7 @@ public class Check {
     /**
      * Метод проверяет заполнен массив true или false.
      *
-     * @param data Массив boolean.
+     * @param data Массив с элементами boolean.
      * @return true или false.
      */
     public boolean mono(boolean[] data) {
