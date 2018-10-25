@@ -5,7 +5,7 @@ package ru.job4j.array;
  *
  * @author Plaksin Arseniy (arsp93@mail.ru)
  * @version 0.1
- * @since 23.10.2018
+ * @since 25.10.2018
  */
 public class Matrix {
     /**
