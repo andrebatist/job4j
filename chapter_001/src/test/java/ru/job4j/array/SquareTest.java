@@ -41,7 +41,7 @@ public class SquareTest {
      * Test 5 элементов.
      */
     @Test
-    public void whenBound4Then1491625() {
+    public void whenBound5Then1491625() {
         int bound = 5;
         Square square = new Square();
         int[] rst = square.calculate(bound);

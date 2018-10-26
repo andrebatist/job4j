@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class TriangleTest {
 
     /**
-     * Test на вычмсление площади треугольника.
+     * Test на вычисление площади треугольника.
      */
     @Test
     public void whenAreaSetThreePointsThenTriangleArea() {
@@ -30,7 +30,7 @@ public class TriangleTest {
     }
 
     /**
-     * Test на вычмсление площади треугольника с неправильными сторонами.
+     * Test на вычисление площади треугольника с неправильными сторонами.
      */
     @Test
     public void whenAreaSetThreePointsWrongThenTriangleArea() {
