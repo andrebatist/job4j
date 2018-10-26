@@ -31,7 +31,6 @@ public class ArrayDuplicate {
                 }
             }
         }
-        array = Arrays.copyOf(array, array.length - doubleCount);
-        return array;
+        return Arrays.copyOf(array, array.length - doubleCount);
     }
 }
