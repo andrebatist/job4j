@@ -13,31 +13,31 @@ public class ArraysSort {
     /**
      * Метод сортирует два отсортированных массива.
      *
-     * @param firstArr  Первый массив.
-     * @param secondArr Второй массив.
+     * @param first  Первый массив.
+     * @param second Второй массив.
      * @return отсортированный массив.
      */
-    public int[] sortArrays(int[] firstArr, int[] secondArr) {
-        int minElFirst = getMinValueFromArray(firstArr);
-        int minElSecond = getMinValueFromArray(secondArr);
-        int[] resArray;
+    public int[] sort(int[] first, int[] second) {
+        int minFirst = getMinValueFromArray(first);
+        int minSecond = getMinValueFromArray(second);
+        int[] res;
         int k = 0;
-        if (minElFirst < minElSecond) {
-            resArray = Arrays.copyOf(firstArr, firstArr.length + secondArr.length);
-            for (int i = firstArr.length; i < resArray.length; i++) {
-                resArray[i] = secondArr[k];
+        if (minFirst < minSecond) {
+            res = Arrays.copyOf(first, first.length + second.length);
+            for (int i = first.length; i < res.length; i++) {
+                res[i] = second[k];
                 k++;
             }
         } else {
-            resArray = Arrays.copyOf(secondArr, secondArr.length + firstArr.length);
-            for (int i = secondArr.length; i < resArray.length; i++) {
-                resArray[i] = firstArr[k];
+            res = Arrays.copyOf(second, second.length + first.length);
+            for (int i = second.length; i < res.length; i++) {
+                res[i] = first[k];
                 k++;
             }
         }
         BubbleSort bubbleSort = new BubbleSort();
-        bubbleSort.sort(resArray);
-        return resArray;
+        bubbleSort.sort(res);
+        return res;
     }
 
     /**
@@ -47,12 +47,12 @@ public class ArraysSort {
      * @return Минимальный элемент.
      */
     private int getMinValueFromArray(int[] arr) {
-        int indexOfMin = 0;
+        int minIndex = 0;
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i] < arr[indexOfMin]) {
-                indexOfMin = i;
+            if (arr[i] < arr[minIndex]) {
+                minIndex = i;
             }
         }
-        return arr[indexOfMin];
+        return arr[minIndex];
     }
 }

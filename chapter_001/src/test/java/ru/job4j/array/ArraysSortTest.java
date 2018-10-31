@@ -19,7 +19,7 @@ public class ArraysSortTest {
     @Test
     public void whenSortArrayWithTwoElementsMinLeft() {
         ArraysSort arraysSort = new ArraysSort();
-        int[] rst = arraysSort.sortArrays(new int[]{1, 3}, new int[]{2, 4});
+        int[] rst = arraysSort.sort(new int[]{1, 3}, new int[]{2, 4});
         int[] expect = new int[]{1, 2, 3, 4};
         assertThat(rst, is(expect));
     }
@@ -30,7 +30,7 @@ public class ArraysSortTest {
     @Test
     public void whenSortArrayWithTwoElementsMinRight() {
         ArraysSort arraysSort = new ArraysSort();
-        int[] rst = arraysSort.sortArrays(new int[]{2, 4}, new int[]{1, 3});
+        int[] rst = arraysSort.sort(new int[]{2, 4}, new int[]{1, 3});
         int[] expect = new int[]{1, 2, 3, 4};
         assertThat(rst, is(expect));
     }
