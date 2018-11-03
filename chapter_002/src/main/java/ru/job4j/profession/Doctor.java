@@ -16,4 +16,14 @@ public class Doctor extends Profession {
     public void treat(Patient patient) {
 
     }
+
+    /**
+     * Метод возвращает диагноз пациента.
+     *
+     * @param patient Пациент.
+     * @return Диагноз.
+     */
+    public Diagnosis heal(Patient patient) {
+        return patient.diagnosis;
+    }
 }
