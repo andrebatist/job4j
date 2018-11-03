@@ -1,7 +1,5 @@
 package ru.job4j.array;
 
-import java.util.Arrays;
-
 /**
  * Сортировка двух отсортированных в отдельности массивов.
  *
@@ -9,35 +7,47 @@ import java.util.Arrays;
  * @version 0.1
  * @since 30.10.2018
  */
-public class ArraysSort {
+public class ArrayFill {
     /**
-     * Метод сортирует два отсортированных массива.
+     * Метод возвращает один массив из двух отсортированных.
      *
      * @param first  Первый массив.
      * @param second Второй массив.
      * @return отсортированный массив.
      */
-    public int[] sort(int[] first, int[] second) {
+    public int[] fill(int[] first, int[] second) {
         int minFirst = getMinValueFromArray(first);
         int minSecond = getMinValueFromArray(second);
-        int[] res;
-        int k = 0;
+        int[] res = new int[first.length + second.length];
         if (minFirst < minSecond) {
-            res = Arrays.copyOf(first, first.length + second.length);
-            for (int i = first.length; i < res.length; i++) {
-                res[i] = second[k];
-                k++;
-            }
+            fillResArray(first, second, res);
         } else {
-            res = Arrays.copyOf(second, second.length + first.length);
-            for (int i = second.length; i < res.length; i++) {
-                res[i] = first[k];
-                k++;
+            fillResArray(second, first, res);
+        }
+        return res;
+    }
+
+    /**
+     * Метод заполняет результиующий массив
+     *
+     * @param first  Первый массив.
+     * @param second Второй массив.
+     * @param res    Итоговый массив.
+     */
+    private void fillResArray(int[] first, int[] second, int[] res) {
+        int k = 0;
+        for (int i = 0; i < first.length; i++) {
+            if (first[i] < second[i]) {
+                if (i == 0) {
+                    res[i] = first[i];
+                    res[i + 1] = second[i];
+                } else {
+                    k++;
+                    res[i + k] = first[i];
+                    res[i + k + 1] = second[i];
+                }
             }
         }
-        BubbleSort bubbleSort = new BubbleSort();
-        bubbleSort.sort(res);
-        return res;
     }
 
     /**
