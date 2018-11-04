@@ -8,9 +8,9 @@ package ru.job4j.profession;
  * @since 1.11.2018
  */
 public class Profession {
-    public String name;
+    private String name;
 
-    public String profession;
+    private String profession;
 
     public String getName() {
         return this.name;
@@ -18,5 +18,9 @@ public class Profession {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getProfession() {
+        return this.profession;
     }
 }

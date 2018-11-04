@@ -8,7 +8,15 @@ package ru.job4j.profession;
  * @since 1.11.2018
  */
 public class Patient {
-    String name;
+    private String name;
 
-    Diagnosis diagnosis;
+    private Diagnosis diagnosis;
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Diagnosis getDiagnosis() {
+        return this.diagnosis;
+    }
 }
