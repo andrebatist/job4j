@@ -52,7 +52,8 @@ public class Tracker {
      * @param item Новая заявка.
      */
     public void replace(String id, Item item) {
-        for (int i = 0; i < this.items.length; i++) {
+        item.setId(id);
+        for (int i = 0; i < this.position; i++) {
             if (this.items[i].getId().equals(id)) {
                 this.items[i] = item;
                 break;
@@ -66,26 +67,12 @@ public class Tracker {
      * @param id Id заявки.
      */
     public void delete(String id) {
-        int index = -1;
-        boolean found = false;
-        for (int i = 0; i < this.items.length; i++) {
+        for (int i = 0; i < this.position; i++) {
             if ((this.items[i] != null) && (this.items[i].getId().equals(id))) {
-                index = i;
-                found = true;
-                if (i + 1 == this.items.length) {
-                    this.items[i] = null;
-                }
-            }
-            if ((found) && (i + 1 < this.items.length)) {
-                this.items[i] = this.items[i + 1];
-            }
-            if ((i + 1 == this.items.length) && (index > 0)) {
-                this.items[i] = null;
+                System.arraycopy(this.items, i + 1, this.items, i, this.position - i + 1);
+                this.position--;
                 break;
             }
-        }
-        if ((this.position != 0) && (found)) {
-            this.position--;
         }
     }
 
@@ -95,15 +82,7 @@ public class Tracker {
      * @return Массив заявок.
      */
     public Item[] findAll() {
-        Item[] tItems = new Item[100];
-        int count = 0;
-        for (Item item : this.items) {
-            if (item != null) {
-                tItems[count] = item;
-                count++;
-            }
-        }
-        return Arrays.copyOf(tItems, count);
+        return Arrays.copyOf(this.items, this.position);
     }
 
     /**
@@ -113,22 +92,13 @@ public class Tracker {
      * @return Массив заявок.
      */
     public Item[] findByName(String key) {
-        Item[] tItems = new Item[100];
-        char[] kChars = key.toCharArray();
+        Item[] tItems = new Item[this.position];
         int count = 0;
         for (Item item : this.items) {
             if (item == null) {
-                continue;
+                break;
             }
-            boolean res = true;
-            char[] chars = item.getName().toCharArray();
-            for (int j = 0; j < kChars.length; j++) {
-                if (kChars[j] != chars[j]) {
-                    res = false;
-                    break;
-                }
-            }
-            if (res) {
+            if (item.getName().equals(key)) {
                 tItems[count] = item;
                 count++;
             }
@@ -143,17 +113,12 @@ public class Tracker {
      * @return Заявка.
      */
     public Item findById(String id) {
-        Item resItem = new Item();
-        boolean found = false;
+        Item resItem = null;
         for (Item item : this.items) {
             if ((item != null) && (item.getId().equals(id))) {
-                found = true;
                 resItem = item;
                 break;
             }
-        }
-        if (!found) {
-            resItem = null;
         }
         return resItem;
     }

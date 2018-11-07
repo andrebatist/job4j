@@ -64,7 +64,7 @@ public class TrackerTest {
     }
 
     /**
-     * Тест удалить последнюю по порядкузаявку.
+     * Тест удалить последнюю по порядку заявку.
      */
     @Test
     public void deleteLastItem() {
@@ -94,13 +94,13 @@ public class TrackerTest {
     public void findByNameResTwo() {
         Tracker tracker = new Tracker();
         tracker.add(new Item("test1", "text", 123L));
-        tracker.add(new Item("test2", "testDescription2", 123L));
+        tracker.add(new Item("test2", "testDescription", 123L));
         tracker.add(new Item("test3", "text3", 123L));
-        tracker.add(new Item("test4", "testDescription4", 123L));
-        Item[] res = tracker.findByName("test");
+        tracker.add(new Item("test4", "testDescription", 123L));
+        Item[] res = tracker.findByName("testDescription");
         assertThat(res.length, is(2));
-        assertThat(res[0].getName(), is("testDescription2"));
-        assertThat(res[1].getName(), is("testDescription4"));
+        assertThat(res[0].getName(), is("testDescription"));
+        assertThat(res[1].getName(), is("testDescription"));
     }
 
     /**
