@@ -32,6 +32,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId());
+        item.setCreated(System.currentTimeMillis());
         this.items[this.position++] = item;
         return item;
     }
