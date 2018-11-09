@@ -89,4 +89,9 @@ public class Item {
         this.created = created;
         this.comments = comments;
     }
+
+    @Override
+    public String toString() {
+        return "Id : " + this.id + " Имя : " + this.name + " Описание : " + this.desc;
+    }
 }

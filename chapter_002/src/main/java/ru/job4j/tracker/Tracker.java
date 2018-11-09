@@ -52,14 +52,17 @@ public class Tracker {
      * @param id   Id заявки.
      * @param item Новая заявка.
      */
-    public void replace(String id, Item item) {
+    public boolean replace(String id, Item item) {
+        boolean found = false;
         item.setId(id);
         for (int i = 0; i < this.position; i++) {
             if (this.items[i].getId().equals(id)) {
                 this.items[i] = item;
+                found = true;
                 break;
             }
         }
+        return found;
     }
 
     /**
@@ -67,14 +70,17 @@ public class Tracker {
      *
      * @param id Id заявки.
      */
-    public void delete(String id) {
+    public boolean delete(String id) {
+        boolean found = false;
         for (int i = 0; i < this.position; i++) {
             if ((this.items[i] != null) && (this.items[i].getId().equals(id))) {
+                found = true;
                 System.arraycopy(this.items, i + 1, this.items, i, this.position - i + 1);
                 this.position--;
                 break;
             }
         }
+        return found;
     }
 
     /**
