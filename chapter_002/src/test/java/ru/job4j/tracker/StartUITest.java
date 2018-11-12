@@ -89,12 +89,9 @@ public class StartUITest {
         new StartUI(input, tracker).init();
         String outStr = new String(out.toByteArray());
         String content = new StringBuilder()
-                .append("------------ Список всех заявок --------------")
-                .append(ln)
-                .append(first)
-                .append(ln)
-                .append(second)
-                .append(ln)
+                .append(String.format("------------ Список всех заявок --------------%s", ln))
+                .append(String.format(first + "%s", ln))
+                .append(String.format(second + "%s", ln))
                 .append("------------ Конец списка --------------")
                 .toString();
         assertTrue(outStr.contains(content));
@@ -110,14 +107,14 @@ public class StartUITest {
         Input input = new StubInput(new String[]{"4", item.getId(), "6"});
         new StartUI(input, tracker).init();
         String outStr = new String(out.toByteArray());
-        String content = new StringBuilder()
-                .append("------------ Поиск заявки по id --------------")
-                .append(ln)
-                .append(item)
-                .append(ln)
-                .append("------------ Заявка " + item.getId() + " найдена --------------")
-                .toString();
-        assertTrue(outStr.contains(content));
+        StringBuilder builder = new StringBuilder();
+        appendMenuToStringBuilder(builder, ln);
+        builder
+                .append(String.format("------------ Поиск заявки по id --------------%s", ln))
+                .append(String.format(item + "%s", ln))
+                .append(String.format("------------ Заявка %s найдена --------------%s", item.getId(), ln));
+        appendMenuToStringBuilder(builder, ln);
+        assertThat(builder.toString(), is(outStr));
     }
 
     /**
@@ -133,15 +130,25 @@ public class StartUITest {
         new StartUI(input, tracker).init();
         String outStr = new String(out.toByteArray());
         String content = new StringBuilder()
-                .append("------------ Результат поиска --------------")
-                .append(ln)
-                .append(first)
-                .append(ln)
-                .append(second)
-                .append(ln)
+                .append(String.format("------------ Результат поиска --------------%s", ln))
+                .append(String.format(first + "%s", ln))
+                .append(String.format(second + "%s", ln))
                 .append("------------ Конец списка --------------")
                 .toString();
         assertTrue(outStr.contains(content));
+    }
+
+    private static void appendMenuToStringBuilder(StringBuilder builder, String ln) {
+        builder
+                .append(String.format("Меню%s", ln))
+                .append(String.format("0. Add new Item%s", ln))
+                .append(String.format("1. Show all items%s", ln))
+                .append(String.format("2. Edit item%s", ln))
+                .append(String.format("3. Delete item%s", ln))
+                .append(String.format("4. Find item by Id%s", ln))
+                .append(String.format("5. Find items by name%s", ln))
+                .append(String.format("6. Exit Program%s", ln));
+
     }
 
 }
