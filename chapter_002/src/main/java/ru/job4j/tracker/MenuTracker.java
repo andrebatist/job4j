@@ -86,6 +86,15 @@ public class MenuTracker {
         this.actions.add(new Exit());
     }
 
+    public int[] setRanges() {
+        int[] ranges = new int[this.actions.size()];
+        int k = 0;
+        for (UserAction action: this.actions) {
+            ranges[k] = k;
+            k++;
+        }
+        return ranges;
+    }
     /**
      * Метод в зависимости от указанного ключа, выполняет соотвествующие действие.
      *
@@ -248,7 +257,7 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-
+            Runtime.getRuntime().exit(0);
         }
 
         @Override
