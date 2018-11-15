@@ -6,6 +6,9 @@ package ru.job4j.tracker;
  * @since 8.11.2018
  */
 public class StartUI {
+    /**
+     * Ключи операций.
+     */
     private int[] ranges;
     /**
      * Получение данных от пользователя.
@@ -39,13 +42,10 @@ public class StartUI {
         do {
             System.out.println("Меню");
             menu.show();
-        //    String key = input.ask("Select:");
-        //    menu.select(key);
-            menu.select(String.valueOf(input.ask("Select:", ranges)));
-          //  String key = String.valueOf(input.ask("Select", ranges));
-//            if ("6".equals(key)) {
-//                exit = true;
-//            }
+            String key = menu.select(String.valueOf(input.ask("Select:", ranges)));
+            if ("6".equals(key)) {
+                exit = true;
+            }
         } while (!exit);
     }
 

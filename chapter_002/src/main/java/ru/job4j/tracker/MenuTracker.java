@@ -86,22 +86,29 @@ public class MenuTracker {
         this.actions.add(new Exit());
     }
 
+    /**
+     * Метод заполняет массив ключей операций.
+     *
+     * @return Массив ключей.
+     */
     public int[] setRanges() {
         int[] ranges = new int[this.actions.size()];
         int k = 0;
-        for (UserAction action: this.actions) {
-            ranges[k] = k;
+        for (UserAction action : this.actions) {
+            ranges[k] = Integer.parseInt(action.key());
             k++;
         }
         return ranges;
     }
+
     /**
      * Метод в зависимости от указанного ключа, выполняет соотвествующие действие.
      *
      * @param key ключ операции
      */
-    public void select(String key) {
+    public String select(String key) {
         this.actions.get(Integer.valueOf(key)).execute(this.input, this.tracker);
+        return key;
     }
 
     /**
@@ -257,7 +264,7 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            Runtime.getRuntime().exit(0);
+
         }
 
         @Override
