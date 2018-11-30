@@ -38,13 +38,21 @@ public class Bank {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
 
             Info info = (Info) o;
 
-            if (max != info.max) return false;
-            if (start != info.start) return false;
+            if (max != info.max) {
+                return false;
+            }
+            if (start != info.start) {
+                return false;
+            }
             return end == info.end;
         }
 
@@ -58,11 +66,11 @@ public class Bank {
 
         @Override
         public String toString() {
-            return "Info{" +
-                    "max=" + max +
-                    ", start=" + this.toTime(this.start) +
-                    ", end=" + this.toTime(this.end) +
-                    '}';
+            return "Info{"
+                    + "max=" + max
+                    + ", start=" + this.toTime(this.start)
+                    + ", end=" + this.toTime(this.end)
+                    + '}';
         }
 
         public String toTime(long time) {
