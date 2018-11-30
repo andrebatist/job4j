@@ -1,8 +1,6 @@
 package ru.job4j.bank;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 public class Bank {
     public static class Visit {
@@ -12,6 +10,14 @@ public class Bank {
         public Visit(final long in, final long out) {
             this.in = in;
             this.out = out;
+        }
+
+        public long getIn() {
+            return this.in;
+        }
+
+        public long getOut() {
+            return this.out;
         }
     }
 
@@ -67,7 +73,45 @@ public class Bank {
     }
 
     public List<Info> max(List<Visit> visits) {
+        int maxSize = 0;
+        int count = 0;
+        List<List<Visit>> visitsList = new ArrayList<>();
+        for (int i = 0; i < visits.size(); i++) {
+            List<Visit> temp = new ArrayList<>();
+            temp.add(visits.get(i));
+            count++;
+            for (int j = i; j < visits.size() - 1; j++) {
+                long diff = visits.get(j + 1).out - visits.get(j + 1).in;
+                if ((visits.get(i).in + diff < visits.get(j + 1).out)
+                        && (visits.get(i).out > visits.get(j + 1).in)) {
+                    temp.add(visits.get(j + 1));
+                    count++;
+                }
+            }
+            if (count > maxSize) {
+                maxSize = count;
+            }
+            visitsList.add(temp);
+            count = 0;
+        }
+        Iterator<List<Visit>> iter = visitsList.iterator();
+        while (iter.hasNext()) {
+            List<Visit> tmp = iter.next();
+            if (tmp.size() != maxSize) {
+                iter.remove();
+            }
+        }
         List<Info> periods = new ArrayList<>();
+        for (List<Visit> tmp : visitsList) {
+            LongSummaryStatistics summaryStatisticsMax = tmp.stream()
+                    .mapToLong(Visit::getIn)
+                    .summaryStatistics();
+            LongSummaryStatistics summaryStatisticsMin = tmp.stream()
+                    .mapToLong(Visit::getOut)
+                    .summaryStatistics();
+            Info info = new Info(maxSize, summaryStatisticsMax.getMax(), summaryStatisticsMin.getMin());
+            periods.add(info);
+        }
         return periods;
     }
 }
