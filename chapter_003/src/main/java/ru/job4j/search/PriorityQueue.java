@@ -11,13 +11,23 @@ public class PriorityQueue {
     private LinkedList<Task> tasks = new LinkedList<>();
 
     public void put(Task task) {
-        int count = this.tasks.size();
         if (this.tasks.size() == 0) {
             this.tasks.addFirst(task);
             return;
         }
-        if (task.getPriority() < this.tasks.get(count - 1).getPriority()) {
-            this.tasks.add(count - 1, task);
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if ((i == this.tasks.size() - 1) && (this.tasks.get(i).getPriority() < task.getPriority())) {
+                this.tasks.addLast(task);
+                break;
+            } else if (i == this.tasks.size() - 1) {
+                this.tasks.add(i, task);
+                break;
+            }
+            if ((this.tasks.get(i).getPriority() < task.getPriority())
+                    && (this.tasks.get(i + 1).getPriority() > task.getPriority())) {
+                this.tasks.add(i + 1, task);
+                break;
+            }
         }
     }
 
