@@ -18,15 +18,18 @@ public class ConvertList2Array {
      */
     public int[][] toArray(List<Integer> list, int rows) {
         List<Integer> tmp = new ArrayList<>(list);
-        while (tmp.size() % rows != 0) {
-            tmp.add(0);
+        int size = tmp.size();
+        while (size % rows != 0) {
+            size++;
         }
-        int cells = tmp.size() / rows;
+        int cells = size / rows;
         int[][] array = new int[rows][cells];
         int count = 0;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cells; j++) {
-                array[i][j] = tmp.get(count);
+                if (count < tmp.size()) {
+                    array[i][j] = tmp.get(count);
+                }
                 count++;
             }
         }
