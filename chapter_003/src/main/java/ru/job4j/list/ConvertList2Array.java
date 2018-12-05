@@ -36,4 +36,20 @@ public class ConvertList2Array {
         }
         return array;
     }
+
+    /**
+     * Возвращает список чисел из списка массивов.
+     *
+     * @param list Исходный список массивов.
+     * @return Список чисел.
+     */
+    public List<Integer> convert(List<int[]> list) {
+        List<Integer> res = new ArrayList<>();
+        for (int[] arr : list) {
+            for (int num : arr) {
+                res.add(num);
+            }
+        }
+        return res;
+    }
 }
