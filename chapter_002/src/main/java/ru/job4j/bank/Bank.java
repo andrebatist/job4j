@@ -2,9 +2,22 @@ package ru.job4j.bank;
 
 import java.util.*;
 
+/**
+ * Пик посетителей в банке.
+ *
+ * @author Plaksin Arseniy (arsp93@mail.ru)
+ * @version 0.1
+ * @since 30.11.2018
+ */
 public class Bank {
     public static class Visit {
+        /**
+         * Время прихода.
+         */
         private final long in;
+        /**
+         * Время ухода.
+         */
         private final long out;
 
         public Visit(final long in, final long out) {
@@ -21,9 +34,21 @@ public class Bank {
         }
     }
 
+    /**
+     * Информация о пике визитов.
+     */
     public static class Info {
+        /**
+         * Максимальное количество посетителей.
+         */
         private long max;
+        /**
+         * Время начала промежутка.
+         */
         private long start;
+        /**
+         * Время окончания промежутка.
+         */
         private long end;
 
         public Info() {
@@ -73,6 +98,12 @@ public class Bank {
                     + '}';
         }
 
+        /**
+         * Преобразование времени в читабельный вид.
+         *
+         * @param time Время в миллисекундах.
+         * @return Строка в читабельном виде.
+         */
         public String toTime(long time) {
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(time);
@@ -80,10 +111,30 @@ public class Bank {
         }
     }
 
+    /**
+     * Возращает список информации о пике посетителей.
+     *
+     * @param visits Список посещений.
+     * @return Список с информацией о пике посетителей.
+     */
     public List<Info> max(List<Visit> visits) {
         int maxSize = 0;
-        int count = 0;
         List<List<Visit>> visitsList = new ArrayList<>();
+        maxSize = getMaxSizeAndSetVisitsList(visits, maxSize, visitsList);
+        removeExcessVisits(maxSize, visitsList);
+        return getInfos(maxSize, visitsList);
+    }
+
+    /**
+     * Возвращает максимальное количество посещений и формирует список связанных по времени визитов.
+     *
+     * @param visits     Список визитов.
+     * @param maxSize    Максимальное количество посещений.
+     * @param visitsList Список связанных по времени визитов.
+     * @return Максимальное количество посещений.
+     */
+    private int getMaxSizeAndSetVisitsList(List<Visit> visits, int maxSize, List<List<Visit>> visitsList) {
+        int count = 0;
         for (int i = 0; i < visits.size(); i++) {
             List<Visit> temp = new ArrayList<>();
             temp.add(visits.get(i));
@@ -102,6 +153,16 @@ public class Bank {
             visitsList.add(temp);
             count = 0;
         }
+        return maxSize;
+    }
+
+    /**
+     * Удаление лишних визитов.
+     *
+     * @param maxSize    Максимальное количество посещений.
+     * @param visitsList Список посещений.
+     */
+    private void removeExcessVisits(int maxSize, List<List<Visit>> visitsList) {
         Iterator<List<Visit>> iter = visitsList.iterator();
         while (iter.hasNext()) {
             List<Visit> tmp = iter.next();
@@ -109,6 +170,16 @@ public class Bank {
                 iter.remove();
             }
         }
+    }
+
+    /**
+     * Возвращает информацию о пике посетителей.
+     *
+     * @param maxSize    Максимальное количество посещений.
+     * @param visitsList Список посещений.
+     * @return Информация о пике посетителей.
+     */
+    private List<Info> getInfos(int maxSize, List<List<Visit>> visitsList) {
         List<Info> periods = new ArrayList<>();
         for (List<Visit> tmp : visitsList) {
             LongSummaryStatistics summaryStatisticsMax = tmp.stream()

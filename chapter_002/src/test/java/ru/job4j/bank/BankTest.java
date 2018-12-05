@@ -9,7 +9,17 @@ import java.util.List;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+/**
+ * Test.
+ *
+ * @author Plaksin Arseniy (arsp93@mail.ru)
+ * @version 0.1
+ * @since 30.11.2018
+ */
 public class BankTest {
+    /**
+     * Тест с одним визитом.
+     */
     @Test
     public void whenOneVisit() {
         List<Bank.Visit> visits = Arrays.asList(
@@ -27,6 +37,9 @@ public class BankTest {
         );
     }
 
+    /**
+     * Тест с пересечением двух визитов.
+     */
     @Test
     public void whenCrossTwoVisit() {
         List<Bank.Visit> visits = Arrays.asList(
@@ -45,6 +58,9 @@ public class BankTest {
         );
     }
 
+    /**
+     * Тест с 6 визитами.
+     */
     @Test
     public void whenSixVisitsThenMax3() {
         List<Bank.Visit> visits = Arrays.asList(
@@ -68,6 +84,9 @@ public class BankTest {
         );
     }
 
+    /**
+     * Тест с двумя пиками посещений.
+     */
     @Test
     public void whenSixVisitsThenTwoMaximum() {
         List<Bank.Visit> visits = Arrays.asList(
@@ -99,6 +118,13 @@ public class BankTest {
         );
     }
 
+    /**
+     * Преобразование часов и минут в миллисекунды.
+     *
+     * @param hour   Часы.
+     * @param minute Минуты.
+     * @return Время в миллисекундах.
+     */
     private long time(int hour, int minute) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2000);
