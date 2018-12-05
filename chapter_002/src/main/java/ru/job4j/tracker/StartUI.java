@@ -1,5 +1,8 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Plaksin Arseniy (arsp93@mail.ru)
  * @version $Id$
@@ -9,7 +12,7 @@ public class StartUI {
     /**
      * Ключи операций.
      */
-    private int[] ranges;
+    private List<Integer> ranges = new ArrayList<>();
     /**
      * Получение данных от пользователя.
      */

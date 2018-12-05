@@ -85,12 +85,10 @@ public class MenuTracker {
      *
      * @return Массив ключей.
      */
-    public int[] setRanges() {
-        int[] ranges = new int[this.actions.size()];
-        int k = 0;
+    public List<Integer> setRanges() {
+        List<Integer> ranges = new ArrayList<>();
         for (UserAction action : this.actions) {
-            ranges[k] = Integer.parseInt(action.key());
-            k++;
+            ranges.add(Integer.parseInt(action.key()));
         }
         return ranges;
     }
@@ -146,7 +144,7 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Список всех заявок --------------");
-            Item[] items = tracker.findAll();
+            List<Item> items = tracker.findAll();
             for (Item item : items) {
                 System.out.println(item);
             }
@@ -208,7 +206,7 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Поиск заявок по имени --------------");
             String name = input.ask("Введите имя заявки : ");
-            Item[] items = tracker.findByName(name);
+            List<Item> items = tracker.findByName(name);
             System.out.println("------------ Результат поиска --------------");
             for (Item item : items) {
                 System.out.println(item);
