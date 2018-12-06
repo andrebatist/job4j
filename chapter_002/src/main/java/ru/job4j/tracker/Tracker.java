@@ -1,7 +1,6 @@
 package ru.job4j.tracker;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -69,10 +68,10 @@ public class Tracker {
      */
     public boolean delete(String id) {
         boolean found = false;
-        for (Item item: this.items) {
-            if (item.getId().equals(id)) {
+        for (int i = 0; i < this.items.size(); i++) {
+            if (items.get(i).getId().equals(id)) {
                 found = true;
-                this.items.remove(item);
+                this.items.remove(i);
                 break;
             }
         }
