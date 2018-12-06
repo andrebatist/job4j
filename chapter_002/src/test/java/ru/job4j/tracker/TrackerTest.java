@@ -76,7 +76,7 @@ public class TrackerTest {
         tracker.add(new Item("test2", "testDescription2", 123L));
         tracker.delete(tracker.getItems().get(1).getId());
         assertThat(tracker.getItems().get(0).getName(), is("testDescription"));
-        assertThat(tracker.getItems().size(),is(1));
+        assertThat(tracker.getItems().size(), is(1));
     }
 
     /**
