@@ -11,19 +11,19 @@ public class StubInput implements Input {
     /**
      * Массив строк ввода.
      */
-    private final String[] value;
+    private final List<String> value;
     /**
      * Указатель ячейки для строки ввода.
      */
     private int position;
 
-    public StubInput(final String[] value) {
+    public StubInput(final List<String> value) {
         this.value = value;
     }
 
     @Override
     public String ask(String question) {
-        return this.value[this.position++];
+        return this.value.get(this.position++);
     }
 
     @Override
