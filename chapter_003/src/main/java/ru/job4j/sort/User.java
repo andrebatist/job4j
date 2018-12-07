@@ -8,6 +8,19 @@ public class User implements Comparable<User>{
     private int age;
 
     @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -39,6 +52,6 @@ public class User implements Comparable<User>{
 
     @Override
     public int compareTo(User o) {
-        return 0;
+        return Integer.compare(this.age, o.age);
     }
 }
