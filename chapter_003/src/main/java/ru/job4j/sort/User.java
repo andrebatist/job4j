@@ -2,9 +2,19 @@ package ru.job4j.sort;
 
 import java.util.Objects;
 
+/**
+ * @author Plaksin Arseniy (arsp93@mail.ru)
+ * @version $Id$
+ * @since 7.12.2018
+ */
 public class User implements Comparable<User> {
+    /**
+     * Имя.
+     */
     private String name;
-
+    /**
+     * Возраст.
+     */
     private int age;
 
     @Override
