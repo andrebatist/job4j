@@ -2,9 +2,19 @@ package ru.job4j.bank;
 
 import java.util.Objects;
 
+/**
+ * @author Plaksin Arseniy (arsp93@mail.ru)
+ * @version $Id$
+ * @since 10.12.2018
+ */
 public class User {
+    /**
+     * Имя.
+     */
     private String name;
-
+    /**
+     * Паспорт.
+     */
     private String passport;
 
     public String getName() {
@@ -30,11 +40,15 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
         User user = (User) o;
-        return Objects.equals(getName(), user.getName()) &&
-                Objects.equals(getPassport(), user.getPassport());
+        return Objects.equals(getName(), user.getName())
+                && Objects.equals(getPassport(), user.getPassport());
     }
 
     @Override

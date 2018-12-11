@@ -3,9 +3,19 @@ package ru.job4j.bank;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/**
+ * @author Plaksin Arseniy (arsp93@mail.ru)
+ * @version $Id$
+ * @since 10.12.2018
+ */
 public class Account {
+    /**
+     * Баланс счета.
+     */
     private BigDecimal value;
-
+    /**
+     * Реквизиты.
+     */
     private String requisites;
 
     public Account(BigDecimal value, String requisites) {
@@ -31,11 +41,15 @@ public class Account {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Account)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Account)) {
+            return false;
+        }
         Account account = (Account) o;
-        return getValue().equals(account.getValue()) &&
-                getRequisites().equals(account.getRequisites());
+        return getValue().equals(account.getValue())
+                && getRequisites().equals(account.getRequisites());
     }
 
     @Override
