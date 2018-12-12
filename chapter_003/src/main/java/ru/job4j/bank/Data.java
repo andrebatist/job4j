@@ -126,40 +126,7 @@ public class Data {
         if ((srcAcc == null) || (destAcc == null) || (!checkAccountBalance(srcAcc, amount))) {
             return false;
         }
-        srcAcc.transfer(true, amount);
-        destAcc.transfer(false, amount);
-        updateData(srcPassport, srcAcc);
-        updateData(destPassport, destAcc);
-        return true;
-    }
-
-    /**
-     * Обновление данных карты.
-     *
-     * @param passport Паспорт.
-     * @param account  Счет.
-     */
-    private void updateData(String passport, Account account) {
-        User user = getUserByPassport(passport);
-        int index = getUserAccounts(passport).indexOf(account);
-        List<Account> accountList = this.data.get(user);
-        accountList.set(index, account);
-        this.data.put(user, accountList);
-    }
-
-    /**
-     * Получение пользователя по паспорту.
-     *
-     * @param passport Паспорт.
-     * @return Пользователь.
-     */
-    private User getUserByPassport(String passport) {
-        for (Map.Entry<User, List<Account>> entry : this.data.entrySet()) {
-            if (entry.getKey().getPassport().equals(passport)) {
-                return entry.getKey();
-            }
-        }
-        return null;
+        return srcAcc.transfer(destAcc, amount);
     }
 
     /**

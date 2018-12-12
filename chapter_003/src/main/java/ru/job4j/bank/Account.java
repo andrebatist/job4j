@@ -58,12 +58,19 @@ public class Account {
     }
 
     /**
-     * Перевод денег на счет.
+     * Перевод средств со счета отправителя получателю.
      *
-     * @param isSource Является ли счет отправителем перевода.
-     * @param amount   Сумма.
+     * @param dest   Счет получателя.
+     * @param amount Сумма.
+     * @return Прошео ли перевод.
      */
-    public void transfer(boolean isSource, BigDecimal amount) {
-        this.value = isSource ? this.value.subtract(amount) : this.value.add(amount);
+    public boolean transfer(Account dest, BigDecimal amount) {
+        boolean res = false;
+        if (this.value.compareTo(amount) >= 0) {
+            this.value = this.value.subtract(amount);
+            dest.value = dest.value.add(amount);
+            res = true;
+        }
+        return res;
     }
 }
