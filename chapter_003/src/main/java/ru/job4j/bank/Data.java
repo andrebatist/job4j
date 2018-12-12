@@ -121,78 +121,66 @@ public class Data {
      */
     public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String destRequisite,
                                  BigDecimal amount) {
-        Map.Entry<User, List<Account>> src = getEntryByPassportAndRequisite(srcPassport, srcRequisite);
-        Map.Entry<User, List<Account>> dest = getEntryByPassportAndRequisite(destPassport, destRequisite);
-        if ((src == null) || (dest == null)) {
+        Account srcAcc = getAccountByPassportAndRequisite(srcPassport, srcRequisite);
+        Account destAcc = getAccountByPassportAndRequisite(destPassport, destRequisite);
+        if ((srcAcc == null) || (destAcc == null) || (!checkAccountBalance(srcAcc, amount))) {
             return false;
         }
-        int srcAccIndex = getAccountIndexFromList(src.getValue(), srcRequisite);
-        Account srcAcc = src.getValue().get(srcAccIndex);
-        if (!checkAccountBalance(srcAcc, amount)) {
-            return false;
-        }
-        int destAccIndex = getAccountIndexFromList(dest.getValue(), destRequisite);
-        Account destAcc = dest.getValue().get(destAccIndex);
-        return updateAccountsData(amount, src, dest, srcAccIndex, srcAcc, destAccIndex, destAcc);
-    }
-
-    /**
-     * Обновление данных счетов.
-     *
-     * @param amount       Сумма.
-     * @param src          Запись о пользователе отправителе.
-     * @param dest         Запись о пользователе получателе.
-     * @param srcAccIndex  Индекс счета отправителя.
-     * @param srcAcc       Счет отправителя.
-     * @param destAccIndex Индекс счета получателя.
-     * @param destAcc      Счет получателя.
-     * @return Обновились ли данные.
-     */
-    private boolean updateAccountsData(BigDecimal amount, Map.Entry<User, List<Account>> src, Map.Entry<User,
-            List<Account>> dest, int srcAccIndex, Account srcAcc, int destAccIndex, Account destAcc) {
-        updateAccounts(srcAcc, destAcc, amount);
-        src.getValue().set(srcAccIndex, srcAcc);
-        dest.getValue().set(destAccIndex, destAcc);
-        this.data.put(src.getKey(), src.getValue());
-        this.data.put(dest.getKey(), dest.getValue());
+        srcAcc.transfer(true, amount);
+        destAcc.transfer(false, amount);
+        updateData(srcPassport, srcAcc);
+        updateData(destPassport, destAcc);
         return true;
     }
 
     /**
-     * Получение записи по паспорту и реквизитам.
+     * Обновление данных карты.
      *
-     * @param passport  Паспорт.
-     * @param requisite Реквизиты.
-     * @return Запись пользователя.
+     * @param passport Паспорт.
+     * @param account  Счет.
      */
-    private Map.Entry<User, List<Account>> getEntryByPassportAndRequisite(String passport, String requisite) {
+    private void updateData(String passport, Account account) {
+        User user = getUserByPassport(passport);
+        int index = getUserAccounts(passport).indexOf(account);
+        List<Account> accountList = this.data.get(user);
+        accountList.set(index, account);
+        this.data.put(user, accountList);
+    }
+
+    /**
+     * Получение пользователя по паспорту.
+     *
+     * @param passport Паспорт.
+     * @return Пользователь.
+     */
+    private User getUserByPassport(String passport) {
         for (Map.Entry<User, List<Account>> entry : this.data.entrySet()) {
             if (entry.getKey().getPassport().equals(passport)) {
-                for (Account account : entry.getValue()) {
-                    if (account.getRequisites().equals(requisite)) {
-                        return entry;
-                    }
-                }
-                break;
+                return entry.getKey();
             }
         }
         return null;
     }
 
     /**
-     * Получение индекса счета.
+     * Получение счета по паспорту и реквизитам.
      *
-     * @param list      Список счетов.
+     * @param passport  Паспорт.
      * @param requisite Реквизиты.
-     * @return Индекс.
+     * @return Счет.
      */
-    private int getAccountIndexFromList(List<Account> list, String requisite) {
-        for (Account acc : list) {
-            if (acc.getRequisites().equals(requisite)) {
-                return list.indexOf(acc);
+    private Account getAccountByPassportAndRequisite(String passport, String requisite) {
+        for (Map.Entry<User, List<Account>> entry : this.data.entrySet()) {
+            if (entry.getKey().getPassport().equals(passport)) {
+                for (Account account : entry.getValue()) {
+                    if (account.getRequisites().equals(requisite)) {
+                        return account;
+                    }
+                }
+                break;
             }
         }
-        return -1;
+        return null;
     }
 
     /**
@@ -204,18 +192,6 @@ public class Data {
      */
     private boolean checkAccountBalance(Account acc, BigDecimal amount) {
         return acc.getValue().compareTo(amount) >= 0;
-    }
-
-    /**
-     * Обновление счетов отправителя и получателя.
-     *
-     * @param src    Счет отправителя.
-     * @param dest   Счет получателя.
-     * @param amount Сумма перевода.
-     */
-    private void updateAccounts(Account src, Account dest, BigDecimal amount) {
-        src.setValue(src.getValue().subtract(amount));
-        dest.setValue(dest.getValue().add(amount));
     }
 
 }

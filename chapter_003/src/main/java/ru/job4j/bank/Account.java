@@ -56,4 +56,14 @@ public class Account {
     public int hashCode() {
         return Objects.hash(getValue(), getRequisites());
     }
+
+    /**
+     * Перевод денег на счет.
+     *
+     * @param isSource Является ли счет отправителем перевода.
+     * @param amount   Сумма.
+     */
+    public void transfer(boolean isSource, BigDecimal amount) {
+        this.value = isSource ? this.value.subtract(amount) : this.value.add(amount);
+    }
 }
