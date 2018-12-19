@@ -2,6 +2,7 @@ package ru.job4j.department;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,7 +20,8 @@ public class SortDepartmentTest {
            new Department("K2\\SK1\\SSK1"),
            new Department("K2\\SK1\\SSK2")
         );
-        List result = new SortDepartment().sortDepartmentsAsc(deps);
+        SortDepartment sortDepartment = new SortDepartment();
+        List result = sortDepartment.sortDepartmentsAsc(deps);
         System.out.println(result);
     }
 
@@ -34,7 +36,8 @@ public class SortDepartmentTest {
                 new Department("K2\\SK1\\SSK1"),
                 new Department("K2\\SK1\\SSK2")
         );
-        List result = new SortDepartment().sortDepartmentsDesc(deps);
+        SortDepartment sortDepartment = new SortDepartment();
+        List result = sortDepartment.sortDepartmentsDesc(deps);
         System.out.println(result);
     }
 }
