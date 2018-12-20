@@ -2,7 +2,18 @@ package ru.job4j.department;
 
 import java.util.*;
 
+/**
+ * @author Plaksin Arseniy (arsp93@mail.ru)
+ * @version $Id$
+ * @since 20.12.2018
+ */
 public class SortDepartment {
+    /**
+     * Сортировка отделов по возрастанию.
+     *
+     * @param departments Список отделов.
+     * @return Отсортированный список.
+     */
     public List<Department> sortDepartmentsAsc(List<Department> departments) {
         departments = new ArrayList(addElements(departments));
         departments.sort(new Comparator<Department>() {
@@ -14,6 +25,12 @@ public class SortDepartment {
         return departments;
     }
 
+    /**
+     * Сортировка отделов по убыванию.
+     *
+     * @param departments Список отделов.
+     * @return Отсортированный список.
+     */
     public List<Department> sortDepartmentsDesc(List<Department> departments) {
         departments = new ArrayList(addElements(departments));
         departments.sort(new Comparator<Department>() {
@@ -40,6 +57,12 @@ public class SortDepartment {
         return departments;
     }
 
+    /**
+     * Вставка элементов  в список.
+     *
+     * @param departments Список отделов.
+     * @return Обновленный список.
+     */
     public List<Department> addElements(List<Department> departments) {
         List<Department> list = new ArrayList<>(departments);
         ListIterator<Department> iterator = list.listIterator();
@@ -56,6 +79,13 @@ public class SortDepartment {
         return list;
     }
 
+    /**
+     * Поиск верхнего отдела.
+     *
+     * @param list    Список отделов.
+     * @param prevStr Наимнеования отдела.
+     * @return Найден ли отдел с таким именем.
+     */
     private boolean isPrevDepartmentExists(List<Department> list, String prevStr) {
         for (Department tmp : list) {
             if (tmp.getName().equals(prevStr)) {
@@ -65,6 +95,12 @@ public class SortDepartment {
         return false;
     }
 
+    /**
+     * Получить наименование верхнего отдела.
+     *
+     * @param department Отдел.
+     * @return Наименования отдела.
+     */
     private String getPrevDepartmentString(Department department) {
         String[] arr = department.getName().split("\\\\");
         StringBuilder sb = new StringBuilder();

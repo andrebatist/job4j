@@ -2,7 +2,15 @@ package ru.job4j.department;
 
 import java.util.Objects;
 
+/**
+ * @author Plaksin Arseniy (arsp93@mail.ru)
+ * @version $Id$
+ * @since 20.12.2018
+ */
 public class Department {
+    /**
+     * Имя.
+     */
     private String name;
 
     public String getName() {
@@ -19,8 +27,12 @@ public class Department {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Department)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Department)) {
+            return false;
+        }
         Department that = (Department) o;
         return Objects.equals(getName(), that.getName());
     }
@@ -32,8 +44,10 @@ public class Department {
 
     @Override
     public String toString() {
-        return "Department{" +
-                "name='" + name + '\'' +
-                '}';
+        return "Department{"
+                + "name='"
+                + name
+                + '\''
+                + '}';
     }
 }

@@ -6,25 +6,48 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
+/**
+ * @author Plaksin Arseniy (arsp93@mail.ru)
+ * @version $Id$
+ * @since 20.12.2018
+ */
 public class SortDepartmentTest {
+    /**
+     * Тест на сортировку по возрастанию.
+     */
     @Test
     public void whenSortDepsAsc() {
         List deps = Arrays.asList(
-           new Department("K1\\SK1"),
-           new Department("K1\\SK2"),
-           new Department("K1\\SK1\\SSK1"),
-           new Department("K1\\SK1\\SSK2"),
-           new Department("K2"),
-           new Department("K2\\SK1\\SSK1"),
-           new Department("K2\\SK1\\SSK2")
+                new Department("K1\\SK1"),
+                new Department("K1\\SK2"),
+                new Department("K1\\SK1\\SSK1"),
+                new Department("K1\\SK1\\SSK2"),
+                new Department("K2"),
+                new Department("K2\\SK1\\SSK1"),
+                new Department("K2\\SK1\\SSK2")
         );
         SortDepartment sortDepartment = new SortDepartment();
         List result = sortDepartment.sortDepartmentsAsc(deps);
-        System.out.println(result);
+        List expect = Arrays.asList(
+                new Department("K1"),
+                new Department("K1\\SK1"),
+                new Department("K1\\SK1\\SSK1"),
+                new Department("K1\\SK1\\SSK2"),
+                new Department("K1\\SK2"),
+                new Department("K2"),
+                new Department("K2\\SK1"),
+                new Department("K2\\SK1\\SSK1"),
+                new Department("K2\\SK1\\SSK2")
+        );
+        assertThat(result, is(expect));
     }
 
+    /**
+     * Тест на сортировку по убыванию.
+     */
     @Test
     public void whenSortDepsDesc() {
         List deps = Arrays.asList(
@@ -38,6 +61,17 @@ public class SortDepartmentTest {
         );
         SortDepartment sortDepartment = new SortDepartment();
         List result = sortDepartment.sortDepartmentsDesc(deps);
-        System.out.println(result);
+        List expect = Arrays.asList(
+                new Department("K2"),
+                new Department("K2\\SK1"),
+                new Department("K2\\SK1\\SSK2"),
+                new Department("K2\\SK1\\SSK1"),
+                new Department("K1"),
+                new Department("K1\\SK2"),
+                new Department("K1\\SK1"),
+                new Department("K1\\SK1\\SSK2"),
+                new Department("K1\\SK1\\SSK1")
+        );
+        assertThat(result, is(expect));
     }
 }
