@@ -41,8 +41,16 @@ public class SortDepartment {
                     result = o2.getName().compareTo(o1.getName());
                 } else {
                     int size = Math.min(o1.getName().length(), o2.getName().length());
-                    String first = o1.getName().substring(0, size);
-                    String second = o2.getName().substring(0, size);
+                    char[] firstArr = o1.getName().toCharArray();
+                    char[] secondArr = o2.getName().toCharArray();
+                    StringBuilder outFirst = new StringBuilder();
+                    StringBuilder outSecond = new StringBuilder();
+                    for (int i = 0; i < size; i++) {
+                        outFirst.append(firstArr[i]);
+                        outSecond.append(secondArr[i]);
+                    }
+                    String first = outFirst.toString();
+                    String second = outSecond.toString();
                     if (first.compareTo(second) == 0 && o1.getName().length() > o2.getName().length()) {
                         result = 1;
                     } else if (first.compareTo(second) == 0 && o1.getName().length() < o2.getName().length()) {
