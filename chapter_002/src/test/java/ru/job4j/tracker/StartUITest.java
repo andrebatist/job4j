@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.Consumer;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -29,6 +30,17 @@ public class StartUITest {
      * Буфер для результата.
      */
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    /**
+     * Consumer output.
+     */
+    private final Consumer<String> output = new Consumer<String>() {
+        private final PrintStream stdout = new PrintStream(out);
+
+        @Override
+        public void accept(String s) {
+            stdout.println(s);
+        }
+    };
 
     /**
      * Символ разделителя.
@@ -52,7 +64,7 @@ public class StartUITest {
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();
         Input input = new StubInput(new ArrayList<>(Arrays.asList("0", "test name", "desc", "6")));
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         assertThat(tracker.findAll().get(0).getName(), is("test name"));
     }
 
@@ -64,7 +76,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name", "desc"));
         Input input = new StubInput(new ArrayList<>(Arrays.asList("2", item.getId(), "test replace", "заменили заявку", "6")));
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         assertThat(tracker.findById(item.getId()).getName(), is("test replace"));
     }
 
@@ -76,7 +88,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name", "desc"));
         Input input = new StubInput(new ArrayList<>(Arrays.asList("3", item.getId(), "6")));
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         assertNull(tracker.findById(item.getId()));
     }
 
@@ -89,7 +101,7 @@ public class StartUITest {
         Item first = tracker.add(new Item("first", "desc"));
         Item second = tracker.add(new Item("second", "desc"));
         Input input = new StubInput(new ArrayList<>(Arrays.asList("1", "6")));
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         String outStr = new String(out.toByteArray());
         String content = new StringBuilder()
                 .append(String.format("------------ Список всех заявок --------------%s", ln))
@@ -108,7 +120,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("name", "desc"));
         Input input = new StubInput(new ArrayList<>(Arrays.asList("4", item.getId(), "6")));
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         String outStr = new String(out.toByteArray());
         StringBuilder builder = new StringBuilder();
         appendMenuToStringBuilder(builder, ln);
@@ -130,7 +142,7 @@ public class StartUITest {
         Item second = tracker.add(new Item("text", "desc2"));
         Item third = tracker.add(new Item("name", "desc3"));
         Input input = new StubInput(new ArrayList<>(Arrays.asList("5", "text", "6")));
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         String outStr = new String(out.toByteArray());
         String content = new StringBuilder()
                 .append(String.format("------------ Результат поиска --------------%s", ln))
