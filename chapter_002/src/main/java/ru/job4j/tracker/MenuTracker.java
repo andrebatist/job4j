@@ -3,6 +3,7 @@ package ru.job4j.tracker;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 /**
  * @author Plaksin Arseniy (arsp93@mail.ru)
@@ -68,11 +69,9 @@ public class MenuTracker {
      * @return Массив ключей.
      */
     public List<Integer> setRanges() {
-        List<Integer> ranges = new ArrayList<>();
-        for (UserAction action : this.actions) {
-            ranges.add(Integer.parseInt(action.key()));
-        }
-        return ranges;
+        return this.actions.stream().map(
+                action -> Integer.parseInt(action.key())
+        ).collect(Collectors.toList());
     }
 
     /**
