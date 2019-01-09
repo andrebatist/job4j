@@ -55,7 +55,9 @@ public class Tracker {
         OptionalInt index = IntStream.range(0, this.items.size())
                 .filter(i -> id.equals(this.items.get(i).getId()))
                 .findFirst();
-        if (!index.isPresent()) return false;
+        if (!index.isPresent()) {
+            return false;
+        }
         this.items.set(index.getAsInt(), item);
         return true;
     }
