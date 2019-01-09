@@ -2,7 +2,10 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalInt;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * @author Plaksin Arseniy (arsp93@mail.ru)
@@ -49,16 +52,12 @@ public class Tracker {
      * @param item Новая заявка.
      */
     public boolean replace(String id, Item item) {
-        boolean found = false;
-        item.setId(id);
-        for (int i = 0; i < this.items.size(); i++) {
-            if (this.items.get(i).getId().equals(id)) {
-                this.items.set(i, item);
-                found = true;
-                break;
-            }
-        }
-        return found;
+        OptionalInt index = IntStream.range(0, this.items.size())
+                .filter(i -> id.equals(this.items.get(i).getId()))
+                .findFirst();
+        if (!index.isPresent()) return false;
+        this.items.set(index.getAsInt(), item);
+        return true;
     }
 
     /**
@@ -67,15 +66,7 @@ public class Tracker {
      * @param id Id заявки.
      */
     public boolean delete(String id) {
-        boolean found = false;
-        for (int i = 0; i < this.items.size(); i++) {
-            if (items.get(i).getId().equals(id)) {
-                found = true;
-                this.items.remove(i);
-                break;
-            }
-        }
-        return found;
+        return this.items.removeIf(item -> item.getId().equals(id));
     }
 
     /**
@@ -94,13 +85,9 @@ public class Tracker {
      * @return Массив заявок.
      */
     public List<Item> findByName(String key) {
-        List<Item> tItems = new ArrayList<>();
-        for (Item item : this.items) {
-            if (item.getName().equals(key)) {
-                tItems.add(item);
-            }
-        }
-        return tItems;
+        return this.items.stream()
+                .filter(item -> item.getName().equals(key))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -110,13 +97,9 @@ public class Tracker {
      * @return Заявка.
      */
     public Item findById(String id) {
-        Item resItem = null;
-        for (Item item : this.items) {
-            if (item.getId().equals(id)) {
-                resItem = item;
-                break;
-            }
-        }
-        return resItem;
+        return this.items.stream()
+                .filter(item -> item.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 }
