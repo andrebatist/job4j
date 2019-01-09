@@ -52,6 +52,7 @@ public class Tracker {
      * @param item Новая заявка.
      */
     public boolean replace(String id, Item item) {
+        item.setId(id);
         OptionalInt index = IntStream.range(0, this.items.size())
                 .filter(i -> id.equals(this.items.get(i).getId()))
                 .findFirst();
