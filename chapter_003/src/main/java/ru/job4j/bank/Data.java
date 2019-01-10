@@ -1,10 +1,7 @@
 package ru.job4j.bank;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Plaksin Arseniy (arsp93@mail.ru)
@@ -71,12 +68,23 @@ public class Data {
      * @param account  Счет.
      */
     public void addAccountToUser(String passport, Account account) {
-        for (Map.Entry<User, List<Account>> entry : this.data.entrySet()) {
-            if (entry.getKey().getPassport().equals(passport)) {
-                entry.getValue().add(account);
-                break;
-            }
+        Optional<Map.Entry<User, List<Account>>> opt = getUserListEntry(passport);
+        if (!opt.isPresent()) {
+            return;
         }
+        opt.get().getValue().add(account);
+    }
+
+    /**
+     * Получить данные пользователя по паспорту.
+     *
+     * @param passport Паспорт.
+     * @return Данные пользователя.
+     */
+    private Optional<Map.Entry<User, List<Account>>> getUserListEntry(String passport) {
+        return this.data.entrySet().stream()
+                .filter(entry -> entry.getKey().getPassport().equals(passport))
+                .findFirst();
     }
 
     /**
@@ -86,12 +94,11 @@ public class Data {
      * @param account  Счет.
      */
     public void deleteAccountFromUser(String passport, Account account) {
-        for (Map.Entry<User, List<Account>> entry : this.data.entrySet()) {
-            if (entry.getKey().getPassport().equals(passport)) {
-                this.data.get(entry.getKey()).remove(account);
-                break;
-            }
+        Optional<Map.Entry<User, List<Account>>> opt = getUserListEntry(passport);
+        if (!opt.isPresent()) {
+            return;
         }
+        this.data.get(opt.get().getKey()).remove(account);
     }
 
     /**
@@ -101,12 +108,8 @@ public class Data {
      * @return Список счетов.
      */
     public List<Account> getUserAccounts(String passport) {
-        for (Map.Entry<User, List<Account>> entry : this.data.entrySet()) {
-            if (entry.getKey().getPassport().equals(passport)) {
-                return entry.getValue();
-            }
-        }
-        return null;
+        Optional<Map.Entry<User, List<Account>>> opt = getUserListEntry(passport);
+        return opt.map(Map.Entry::getValue).orElse(null);
     }
 
     /**
@@ -137,17 +140,14 @@ public class Data {
      * @return Счет.
      */
     private Account getAccountByPassportAndRequisite(String passport, String requisite) {
-        for (Map.Entry<User, List<Account>> entry : this.data.entrySet()) {
-            if (entry.getKey().getPassport().equals(passport)) {
-                for (Account account : entry.getValue()) {
-                    if (account.getRequisites().equals(requisite)) {
-                        return account;
-                    }
-                }
-                break;
-            }
+        Optional<Map.Entry<User, List<Account>>> opt = getUserListEntry(passport);
+        if (!opt.isPresent()) {
+            return null;
         }
-        return null;
+        Optional<Account> accOpt = opt.get().getValue().stream()
+                .filter(account -> account.getRequisites().equals(requisite))
+                .findFirst();
+        return accOpt.isPresent() ? accOpt.get() : null;
     }
 
     /**
