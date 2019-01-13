@@ -22,8 +22,6 @@ public class StudData {
         Collections.sort(students, new Student());
         return students.stream()
                 .flatMap(Stream::ofNullable)
-                .collect(Collectors.toList())
-                .stream()
                 .takeWhile(stud -> stud.getScope() > bound)
                 .collect(Collectors.toList());
     }
