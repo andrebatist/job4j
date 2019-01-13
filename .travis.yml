@@ -3,6 +3,12 @@ language: java
 # используем режим обычного пользователя для сборки проекта.
 sudo: false
 
+jdk:
+- oraclejdk8
+- oraclejdk11
+- openjdk10
+- openjdk11
+
 # Get latest install-jdk.sh script
 before_install:
 - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
