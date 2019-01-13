@@ -3,6 +3,10 @@ language: java
 # используем режим обычного пользователя для сборки проекта.
 sudo: false
 
+# Get latest install-jdk.sh script
+before_install:
+- wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
+
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонни сервис https://codecov.io/
 after_success:
@@ -15,3 +19,12 @@ notifications:
       - arsp93@mail.ru
     on_success: never # default: change
     on_failure: always # default: always
+
+matrix:
+  include:
+  # Java 10 "Oracle JDK"
+  - env: JDK='Oracle JDK 10'
+    install: . ./install-jdk.sh -F 10 -L BCL
+  # Java 10 "OpenJDK"
+  - env: JDK='OpenJDK 10'
+    install: . ./install-jdk.sh -F 10 -L GPL
