@@ -2,9 +2,8 @@ package ru.job4j.map;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -23,13 +22,15 @@ public class UserConvertTest {
     @Test
     public void when2IntArraysThen1res() {
         UserConvert convert = new UserConvert();
-        List<User> sample = new ArrayList<>();
-        sample.add(new User(1, "Victor", "Berlin"));
-        sample.add(new User(2, "Deni", "Paris"));
-        HashMap<Integer, User> result = convert.process(sample);
-        HashMap<Integer, User> expect = new HashMap<>();
-        expect.put(1, new User(1, "Victor", "Berlin"));
-        expect.put(2, new User(2, "Deni", "Paris"));
+        List<User> sample = List.of(
+                new User(1, "Victor", "Berlin"),
+                new User(2, "Deni", "Paris")
+        );
+        Map<Integer, User> result = convert.process(sample);
+        Map<Integer, User> expect = Map.of(
+                1, new User(1, "Victor", "Berlin"),
+                2, new User(2, "Deni", "Paris")
+        );
         assertThat(result, is(expect));
     }
 }

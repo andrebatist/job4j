@@ -2,12 +2,10 @@ package ru.job4j.department;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Plaksin Arseniy (arsp93@mail.ru)
@@ -20,7 +18,7 @@ public class SortDepartmentTest {
      */
     @Test
     public void whenSortDepsAsc() {
-        List deps = Arrays.asList(
+        List deps = List.of(
                 new Department("K1\\SK1"),
                 new Department("K1\\SK2"),
                 new Department("K1\\SK1\\SSK1"),
@@ -31,7 +29,7 @@ public class SortDepartmentTest {
         );
         SortDepartment sortDepartment = new SortDepartment();
         List result = sortDepartment.sortDepartmentsAsc(deps);
-        List expect = Arrays.asList(
+        List expect = List.of(
                 new Department("K1"),
                 new Department("K1\\SK1"),
                 new Department("K1\\SK1\\SSK1"),
@@ -50,7 +48,7 @@ public class SortDepartmentTest {
      */
     @Test
     public void whenSortDepsDesc() {
-        List deps = Arrays.asList(
+        List deps = List.of(
                 new Department("K1\\SK1"),
                 new Department("K1\\SK2"),
                 new Department("K1\\SK1\\SSK1"),
@@ -61,7 +59,7 @@ public class SortDepartmentTest {
         );
         SortDepartment sortDepartment = new SortDepartment();
         List result = sortDepartment.sortDepartmentsDesc(deps);
-        List expect = Arrays.asList(
+        List expect = List.of(
                 new Department("K2"),
                 new Department("K2\\SK1"),
                 new Department("K2\\SK1\\SSK2"),
