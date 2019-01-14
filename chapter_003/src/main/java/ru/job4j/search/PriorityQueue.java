@@ -16,7 +16,7 @@ public class PriorityQueue {
         OptionalInt indexOpt = IntStream.range(0, this.tasks.size())
                 .filter(i -> this.tasks.get(i).getPriority() > task.getPriority())
                 .findFirst();
-        int index = indexOpt.isPresent() ? indexOpt.getAsInt() : this.tasks.size();
+        var index = indexOpt.isPresent() ? indexOpt.getAsInt() : this.tasks.size();
         this.tasks.add(index, task);
     }
 

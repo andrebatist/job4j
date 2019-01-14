@@ -2,10 +2,8 @@ package ru.job4j.search;
 
 import org.junit.Test;
 
-import java.util.List;
-
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Test.
@@ -20,11 +18,11 @@ public class PhoneDictionaryTest {
      */
     @Test
     public void whenFindByName() {
-        PhoneDictionary phones = new PhoneDictionary();
+        var phones = new PhoneDictionary();
         phones.add(
                 new Person("Petr", "Arsentev", "534872", "Bryansk")
         );
-        List<Person> persons = phones.find("Petr");
+        var persons = phones.find("Petr");
         assertThat(persons.iterator().next().getSurname(), is("Arsentev"));
     }
 
@@ -33,10 +31,10 @@ public class PhoneDictionaryTest {
      */
     @Test
     public void whenFindByNameThenTwoPersons() {
-        PhoneDictionary phones = new PhoneDictionary();
+        var phones = new PhoneDictionary();
         phones.add(new Person("Petr", "Popov", "534872", "Bryansk"));
         phones.add(new Person("Petr", "Popovsky", "8805553535", "Omsk"));
-        List<Person> persons = phones.find("Popov");
+        var persons = phones.find("Popov");
         assertThat(persons.size(), is(2));
     }
 }
