@@ -20,22 +20,23 @@ public class EvenIterator implements Iterator {
 
     @Override
     public boolean hasNext() {
-        int tmp = this.index;
-        do {
-            tmp++;
-        } while (tmp != this.values.length && values[tmp] % 2 != 0);
-        return tmp != this.values.length;
+        return getEvenValue(this.index) != this.values.length;
     }
 
     @Override
     public Object next() {
-        do {
-            this.index++;
-        } while (this.index != this.values.length && values[this.index] % 2 != 0);
-        if (this.index == this.values.length) {
+        this.index = getEvenValue(this.index);
+        if (this.values.length == 0 || this.index == this.values.length) {
             throw new NoSuchElementException();
         }
         return values[index];
+    }
+
+    private int getEvenValue(int tmp) {
+        do {
+            tmp++;
+        } while (tmp != this.values.length && values[tmp] % 2 != 0);
+        return tmp;
     }
 
 }
