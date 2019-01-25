@@ -12,7 +12,7 @@ public class EvenIterator implements Iterator {
 
     private final int[] values;
 
-    private int index = -1;
+    private int index;
 
     public EvenIterator(int[] values) {
         this.values = values;
@@ -20,23 +20,23 @@ public class EvenIterator implements Iterator {
 
     @Override
     public boolean hasNext() {
-        return getEvenValue(this.index) != this.values.length;
+        boolean res = false;
+        for (int i = index; i < values.length; i++) {
+            if (values[i] % 2 == 0) {
+                res = true;
+                index = i;
+                break;
+            }
+        }
+        return res;
     }
 
     @Override
     public Object next() {
-        this.index = getEvenValue(this.index);
-        if (this.values.length == 0 || this.index == this.values.length) {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        return values[index];
-    }
-
-    private int getEvenValue(int tmp) {
-        do {
-            tmp++;
-        } while (tmp != this.values.length && values[tmp] % 2 != 0);
-        return tmp;
+        return values[index++];
     }
 
 }

@@ -30,10 +30,7 @@ public class MatrixIterator implements Iterator {
 
     @Override
     public Object next() {
-        if (this.values.length == 0
-                || (this.indexI == this.values.length
-                || (this.indexI == this.values.length - 1
-                && this.indexJ == this.values[this.values.length - 1].length))) {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
         if (this.indexI == -1 && this.indexJ == -1) {
