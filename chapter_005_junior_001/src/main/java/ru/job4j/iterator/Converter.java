@@ -31,6 +31,9 @@ public class Converter {
                     if (inner.hasNext()) {
                         return true;
                     }
+                    if (it.hasNext()) {
+                        return true;
+                    }
                 }
                 return false;
             }
