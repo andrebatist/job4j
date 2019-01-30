@@ -21,21 +21,19 @@ public class Converter {
 
             @Override
             public boolean hasNext() {
+                boolean res = false;
                 if (inner.hasNext()) {
-                    return true;
+                    res = true;
                 } else {
-                    if (!it.hasNext()) {
-                        return false;
-                    }
-                    inner = it.next();
-                    if (inner.hasNext()) {
-                        return true;
-                    }
-                    if (it.hasNext()) {
-                        return true;
+                    while (it.hasNext()) {
+                        inner = it.next();
+                        if (inner.hasNext()) {
+                            res = true;
+                            break;
+                        }
                     }
                 }
-                return false;
+                return res;
             }
 
             @Override
