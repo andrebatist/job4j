@@ -23,6 +23,9 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public void set(int index, T model) {
+        if (index >= this.index) {
+            throw new NoSuchElementException();
+        }
         this.objects[index] = model;
     }
 
