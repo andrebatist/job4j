@@ -18,6 +18,10 @@ public class SimpleArray<T> implements Iterable<T> {
         this.objects = new Object[size];
     }
 
+    public Object[] getObjects() {
+        return objects;
+    }
+
     public void add(T model) {
         this.objects[index++] = model;
     }
