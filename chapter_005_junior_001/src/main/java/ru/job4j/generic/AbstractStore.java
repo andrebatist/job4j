@@ -18,17 +18,17 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
     }
 
     @Override
-    public void add(Base model) {
-        this.values.add((T) model);
+    public void add(T model) {
+        this.values.add(model);
     }
 
     @Override
-    public boolean replace(String id, Base model) {
+    public boolean replace(String id, T model) {
         int index = getIndex(id);
         if (index == -1) {
             return false;
         }
-        this.values.set(index, (T) model);
+        this.values.set(index, model);
         return true;
     }
 
