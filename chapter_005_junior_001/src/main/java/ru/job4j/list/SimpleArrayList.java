@@ -26,8 +26,9 @@ public class SimpleArrayList<E> {
     }
 
     public E delete() {
-        this.first.next = null;
-        return this.first.date;
+        E date = this.first.date;
+        this.first = this.first.next;
+        return date;
     }
 
     public E get(int index) {

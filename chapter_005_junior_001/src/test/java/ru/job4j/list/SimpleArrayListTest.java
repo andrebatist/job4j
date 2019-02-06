@@ -38,6 +38,8 @@ public class SimpleArrayListTest {
     @Test
     public void whenDeleteThenResult() {
         assertThat(list.delete(), is(3));
+        assertThat(list.delete(), is(2));
+        assertThat(list.delete(), is(1));
     }
 
 }
