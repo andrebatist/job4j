@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.stream.IntStream;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -21,17 +22,7 @@ public class DynamicArrayTest {
 
     @Before
     public void setUp() {
-        arr.add(1);
-        arr.add(2);
-        arr.add(3);
-        arr.add(4);
-        arr.add(5);
-        arr.add(6);
-        arr.add(7);
-        arr.add(8);
-        arr.add(9);
-        arr.add(10);
-        arr.add(11);
+        addElements(arr, 1, 11);
     }
 
     @Test
@@ -43,16 +34,7 @@ public class DynamicArrayTest {
     @Test(expected = ConcurrentModificationException.class)
     public void shoulThrowConcurrentModificationException() {
         Iterator<Integer> it = arr.iterator();
-        arr.add(12);
-        arr.add(13);
-        arr.add(14);
-        arr.add(15);
-        arr.add(16);
-        arr.add(17);
-        arr.add(18);
-        arr.add(19);
-        arr.add(20);
-        arr.add(21);
+        addElements(arr, 12, 21);
         it.next();
     }
 
@@ -76,28 +58,15 @@ public class DynamicArrayTest {
     @Test
     public void whenHasNextSize10ThenResultFalse() {
         DynamicArray<Integer> tmp = new DynamicArray<>();
-        tmp.add(1);
-        tmp.add(2);
-        tmp.add(3);
-        tmp.add(4);
-        tmp.add(5);
-        tmp.add(6);
-        tmp.add(7);
-        tmp.add(8);
-        tmp.add(9);
-        tmp.add(10);
+        addElements(tmp, 1, 10);
         Iterator<Integer> it = tmp.iterator();
-        it.next();
-        it.next();
-        it.next();
-        it.next();
-        it.next();
-        it.next();
-        it.next();
-        it.next();
-        it.next();
+        IntStream.range(0, 9).forEach(i -> it.next());
         assertThat(it.hasNext(), is(true));
         it.next();
         assertThat(it.hasNext(), is(false));
+    }
+
+    private void addElements(DynamicArray<Integer> tmp, int start, int finish) {
+        IntStream.range(start, finish + 1).forEach(tmp::add);
     }
 }
