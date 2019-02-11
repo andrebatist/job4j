@@ -55,4 +55,47 @@ public class DynamicArrayTest {
         arr.add(21);
         it.next();
     }
+
+    @Test
+    public void whenHasNextThenResult() {
+        DynamicArray<Integer> tmp = new DynamicArray<>();
+        tmp.add(1);
+        Iterator<Integer> it = tmp.iterator();
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.hasNext(), is(false));
+    }
+
+    @Test
+    public void whenEmptyHasNextThenResultFalse() {
+        DynamicArray<Integer> tmp = new DynamicArray<>();
+        Iterator<Integer> it = tmp.iterator();
+        assertThat(it.hasNext(), is(false));
+    }
+
+    @Test
+    public void whenHasNextSize10ThenResultFalse() {
+        DynamicArray<Integer> tmp = new DynamicArray<>();
+        tmp.add(1);
+        tmp.add(2);
+        tmp.add(3);
+        tmp.add(4);
+        tmp.add(5);
+        tmp.add(6);
+        tmp.add(7);
+        tmp.add(8);
+        tmp.add(9);
+        tmp.add(10);
+        Iterator<Integer> it = tmp.iterator();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        it.hasNext();
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.hasNext(), is(false));
+    }
 }

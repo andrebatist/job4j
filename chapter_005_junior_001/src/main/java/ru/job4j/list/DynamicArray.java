@@ -38,6 +38,7 @@ public class DynamicArray<T> implements Iterable<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             private int pos = 0;
+            private int nextPos = 0;
             int expectedModCount = modCount;
 
             @Override
@@ -45,7 +46,10 @@ public class DynamicArray<T> implements Iterable<T> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return container.length > pos;
+                if (nextPos == container.length) {
+                    return false;
+                }
+                return container[nextPos++] != null;
             }
 
             @Override
