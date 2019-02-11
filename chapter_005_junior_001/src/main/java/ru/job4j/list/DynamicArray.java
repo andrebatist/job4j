@@ -46,10 +46,7 @@ public class DynamicArray<T> implements Iterable<T> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                if (nextPos == container.length) {
-                    return false;
-                }
-                return container[nextPos++] != null;
+                return nextPos++ < index;
             }
 
             @Override
