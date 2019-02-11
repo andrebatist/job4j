@@ -62,6 +62,7 @@ public class DynamicArrayTest {
         tmp.add(1);
         Iterator<Integer> it = tmp.iterator();
         assertThat(it.hasNext(), is(true));
+        it.next();
         assertThat(it.hasNext(), is(false));
     }
 
@@ -86,16 +87,17 @@ public class DynamicArrayTest {
         tmp.add(9);
         tmp.add(10);
         Iterator<Integer> it = tmp.iterator();
-        it.hasNext();
-        it.hasNext();
-        it.hasNext();
-        it.hasNext();
-        it.hasNext();
-        it.hasNext();
-        it.hasNext();
-        it.hasNext();
-        it.hasNext();
+        it.next();
+        it.next();
+        it.next();
+        it.next();
+        it.next();
+        it.next();
+        it.next();
+        it.next();
+        it.next();
         assertThat(it.hasNext(), is(true));
+        it.next();
         assertThat(it.hasNext(), is(false));
     }
 }
