@@ -1,11 +1,18 @@
 package ru.job4j.list;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * @author Plaksin Arseniy (arsp93@mail.ru)
+ * @version $Id$
+ * @since 14.02.2019
+ */
 public class SingleLinkedList<T> implements Iterable<T> {
     private int size;
     private Node<T> first;
+    private int modCount = 0;
 
     private static class Node<T> {
         T date;
@@ -21,6 +28,7 @@ public class SingleLinkedList<T> implements Iterable<T> {
         newLink.next = this.first;
         this.first = newLink;
         this.size++;
+        modCount++;
     }
 
     public T get(int index) {
@@ -35,27 +43,29 @@ public class SingleLinkedList<T> implements Iterable<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             private int pos = 0;
+            private Node<T> firstNode = first;
+            int expectedModCount = modCount;
 
             @Override
             public boolean hasNext() {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
                 return pos < size;
             }
 
             @Override
             public T next() {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                SingleLinkedList.Node<T> result = first;
-                if (pos == 0) {
-                    pos++;
-                    return first.date;
-                }
-                for (int i = 0; i < pos; i++) {
-                    result = result.next;
-                    pos++;
-                }
-                return result.date;
+                Node<T> tmp = firstNode;
+                this.firstNode = tmp.next;
+                pos++;
+                return tmp.date;
             }
         };
     }
