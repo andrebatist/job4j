@@ -17,6 +17,8 @@ public class SimpleStackTest {
     @Test
     public void whenPush3thenPoll3() {
         SimpleStack<Integer> stack = new SimpleStack<>();
+        SingleLinkedList<Integer> list = new SingleLinkedList<>();
+        stack.setStack(list);
         stack.push(1);
         stack.push(2);
         stack.push(3);

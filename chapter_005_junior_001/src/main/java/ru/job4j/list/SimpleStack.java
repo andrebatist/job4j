@@ -6,34 +6,22 @@ package ru.job4j.list;
  * @since 20.02.2019
  */
 public class SimpleStack<T> {
-    private int size;
-    private SimpleStack.Node<T> first;
 
-    public int getSize() {
-        return size;
+    private SingleLinkedList<T> stack = new SingleLinkedList<>();
+
+    public void setStack(SingleLinkedList<T> stack) {
+        this.stack = stack;
     }
 
-    private static class Node<T> {
-        T date;
-        SimpleStack.Node<T> next;
-
-        Node(T date) {
-            this.date = date;
-        }
+    public int getSize() {
+        return stack.getSize();
     }
 
     public T poll() {
-        SimpleStack.Node<T> result = this.first;
-        T res = result.date;
-        this.first = this.first.next;
-        this.size--;
-        return res;
+        return stack.delete();
     }
 
     public void push(T date) {
-        SimpleStack.Node<T> newLink = new SimpleStack.Node<>(date);
-        newLink.next = this.first;
-        this.first = newLink;
-        this.size++;
+        stack.add(date);
     }
 }

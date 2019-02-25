@@ -14,6 +14,10 @@ public class SingleLinkedList<T> implements Iterable<T> {
     private Node<T> first;
     private int modCount = 0;
 
+    public int getSize() {
+        return size;
+    }
+
     private static class Node<T> {
         T date;
         Node<T> next;
@@ -37,6 +41,14 @@ public class SingleLinkedList<T> implements Iterable<T> {
             result = result.next;
         }
         return result.date;
+    }
+
+    public T delete() {
+        SingleLinkedList.Node<T> result = this.first;
+        T res = result.date;
+        this.first = this.first.next;
+        this.size--;
+        return res;
     }
 
     @Override
