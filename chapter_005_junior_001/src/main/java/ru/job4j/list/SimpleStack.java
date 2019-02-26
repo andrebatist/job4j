@@ -13,6 +13,10 @@ public class SimpleStack<T> {
         this.stack = stack;
     }
 
+    public SingleLinkedList<T> getStack() {
+        return stack;
+    }
+
     public int getSize() {
         return stack.getSize();
     }

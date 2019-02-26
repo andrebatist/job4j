@@ -3,6 +3,7 @@ package ru.job4j.list;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.stream.IntStream;
 
 /**
  * @author Plaksin Arseniy (arsp93@mail.ru)
@@ -48,6 +49,29 @@ public class SingleLinkedList<T> implements Iterable<T> {
         T res = result.date;
         this.first = this.first.next;
         this.size--;
+        return res;
+    }
+
+    public T deleteFirst() {
+        SingleLinkedList<T> reversed = new SingleLinkedList<>();
+        IntStream.range(0, this.size).forEach(i -> reversed.add(this.get(i)));
+        SingleLinkedList.Node<T> result = this.first;
+        T res = null;
+        SingleLinkedList<T> tmp = new SingleLinkedList<>();
+        for (int i = 0; i < reversed.size; i++) {
+            if (i != 0) {
+                tmp.add(reversed.get(i));
+            }
+            if (result.next == null) {
+                res = result.date;
+            }
+            if (result.next != null) {
+                result = result.next;
+            }
+        }
+        this.first = tmp.first;
+        this.size--;
+        modCount++;
         return res;
     }
 
