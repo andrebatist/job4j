@@ -2,6 +2,11 @@ package ru.job4j.list;
 
 import java.util.NoSuchElementException;
 
+/**
+ * @author Plaksin Arseniy (arsp93@mail.ru)
+ * @version $Id$
+ * @since 11.03.2019
+ */
 public class DoubleLinkedList<E> {
     private Node first;
     private Node last;
