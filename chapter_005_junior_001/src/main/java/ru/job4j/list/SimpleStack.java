@@ -7,25 +7,22 @@ package ru.job4j.list;
  */
 public class SimpleStack<T> {
 
-    private SingleLinkedList<T> stack = new SingleLinkedList<>();
+    private final DoubleLinkedList<T> list = new DoubleLinkedList<>();
 
-    public void setStack(SingleLinkedList<T> stack) {
-        this.stack = stack;
+
+    public void push(T value) {
+        list.add(value);
     }
 
-    public SingleLinkedList<T> getStack() {
-        return stack;
-    }
-
-    public int getSize() {
-        return stack.getSize();
-    }
 
     public T poll() {
-        return stack.delete();
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.removeLast();
     }
 
-    public void push(T date) {
-        stack.add(date);
+    public boolean isEmpty() {
+        return list.isEmpty();
     }
 }
