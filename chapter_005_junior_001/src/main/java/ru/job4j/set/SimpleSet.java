@@ -12,18 +12,33 @@ import java.util.Iterator;
 public class SimpleSet<T> implements Iterable<T> {
     private DynamicArray<T> set = new DynamicArray<>();
 
-    public boolean add(T value) {
-        for (T val : set) {
-            if (val.equals(value)) {
-                return false;
-            }
+    private boolean isNullAdded;
+
+    public void add(T value) {
+        if (isNotDouble(value)) {
+            set.add(value);
         }
-        set.add(value);
-        return true;
     }
 
     @Override
     public Iterator<T> iterator() {
         return set.iterator();
+    }
+
+    private boolean isNotDouble(T value) {
+        if (value == null) {
+            if (!isNullAdded) {
+                isNullAdded = true;
+                return true;
+            } else {
+                return false;
+            }
+        }
+        for (T val : set) {
+            if (val != null && val.equals(value)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

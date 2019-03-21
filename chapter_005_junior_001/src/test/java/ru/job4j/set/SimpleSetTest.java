@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.Iterator;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -38,6 +39,18 @@ public class SimpleSetTest {
         simpleSet.add("0");
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is("0"));
+        assertThat(it.hasNext(), is(false));
+    }
+
+    @Test
+    public void whenAddNullThenResult() {
+        simpleSet.add(null);
+        simpleSet.add("val");
+        simpleSet.add(null);
+        assertThat(it.hasNext(), is(true));
+        assertNull(it.next());
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is("val"));
         assertThat(it.hasNext(), is(false));
     }
 }
