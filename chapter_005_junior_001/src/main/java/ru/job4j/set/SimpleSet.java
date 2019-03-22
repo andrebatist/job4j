@@ -3,6 +3,7 @@ package ru.job4j.set;
 import ru.job4j.list.DynamicArray;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 /**
  * @author Plaksin Arseniy (arsp93@mail.ru)
@@ -11,8 +12,6 @@ import java.util.Iterator;
  */
 public class SimpleSet<T> implements Iterable<T> {
     private DynamicArray<T> set = new DynamicArray<>();
-
-    private boolean isNullAdded;
 
     public void add(T value) {
         if (isNotDouble(value)) {
@@ -26,16 +25,8 @@ public class SimpleSet<T> implements Iterable<T> {
     }
 
     private boolean isNotDouble(T value) {
-        if (value == null) {
-            if (!isNullAdded) {
-                isNullAdded = true;
-                return true;
-            } else {
-                return false;
-            }
-        }
         for (T val : set) {
-            if (val != null && val.equals(value)) {
+            if (Objects.equals(val, value)) {
                 return false;
             }
         }
