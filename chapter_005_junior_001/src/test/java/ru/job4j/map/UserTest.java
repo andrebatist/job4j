@@ -28,6 +28,6 @@ public class UserTest {
         userObjectMap.put(userOne, "First");
         userObjectMap.put(userTwo, "Second");
         System.out.println(userObjectMap);
-        assertThat(userObjectMap.size(), is(2));
+        assertThat(userObjectMap.size(), is(1));
     }
 }
