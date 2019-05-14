@@ -83,4 +83,21 @@ public class SimpleTreeImplTest {
         it.next();
         it.next();
     }
+
+    @Test
+    public void whenIsBinaryThenTrue() {
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(2, 4);
+        tree.add(2, 5);
+        assertThat(tree.isBinary(), is(true));
+    }
+
+    @Test
+    public void whenNonBinaryTreeThenFalse() {
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(2, 4);
+        assertThat(tree.isBinary(), is(false));
+    }
 }

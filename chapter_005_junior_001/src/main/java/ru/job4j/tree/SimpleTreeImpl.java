@@ -102,4 +102,15 @@ public class SimpleTreeImpl<T> implements SimpleTree<T> {
     public Iterator<T> iterator() {
         return new ElementIterator();
     }
+
+    public boolean isBinary() {
+        NodeIterator it = new NodeIterator();
+        while (it.hasNext()) {
+            int numSubNodes = it.next().getChildren().size();
+            if (numSubNodes != 2 && numSubNodes != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
