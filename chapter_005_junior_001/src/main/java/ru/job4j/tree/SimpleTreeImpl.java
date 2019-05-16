@@ -107,7 +107,7 @@ public class SimpleTreeImpl<T> implements SimpleTree<T> {
         NodeIterator it = new NodeIterator();
         while (it.hasNext()) {
             int numSubNodes = it.next().getChildren().size();
-            if (numSubNodes != 2 && numSubNodes != 0) {
+            if (numSubNodes > 2 || numSubNodes == 1) {
                 return false;
             }
         }
